@@ -1,9 +1,8 @@
 {
   "name": "folder-commands",
   "displayName": "Folder Commands",
-  "description": "",
+  "description": "Folder commands for Typescript applications",
   "version": "0.0.1",
-  "license": "SEE LICENSE IN LICENSE.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/jrdutton/vscode-folder-commands.git"
@@ -17,30 +16,33 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:folderCommands.runCommands"
+    "onCommand:extension.folderCommands"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "folderCommands.runCommands",
-        "title": "Run Commands",
-        "category": "Folder Commands"
+        "command": "extension.folderCommands",
+        "title": "Folder Commands"
       }
     ],
     "configuration": {
       "properties": {
-        "folderCommands.fileTypes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": [
-            "typescript"
-          ],
-          "description": "Specifies the types of files."
+        "folderCommands.fileExtensionRegex": {
+          "type": "string",
+          "default": ".tsx?$",
+          "description": "Regular expression for file extensions that will be included"
         }
       }
+    },
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "extension.folderCommands",
+          "group": "1_modification"
+        }
+      ]
     }
   },
   "scripts": {
@@ -50,19 +52,15 @@
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js"
   },
-  "prettier": {
-    "printWidth": 150,
-    "singleQuote": true
-  },
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.11.7",
+    "@types/node": "^13.1.2",
     "@types/vscode": "^1.41.0",
     "glob": "^7.1.5",
     "mocha": "^6.2.2",
-    "typescript": "^3.6.4",
     "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
     "vscode-test": "^1.2.2"
   }
 }
